@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Category < ApplicationRecord
   belongs_to :department
   after_create :increment_department_quantity
