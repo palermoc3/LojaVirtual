@@ -47,6 +47,19 @@ class ProductsController < ApplicationController
     end
   end
 
+  def destroy
+    if @product.quantity.zero?
+      @product.destroy
+      flash[:notice] = 'product was successfully destroyed.'
+    else
+      flash[:alert] = 'Cannot delete product with quantity greater than zero.'
+    end
+    respond_to do |format|
+      format.html { redirect_to products_url }
+      format.json { head :no_content }
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
