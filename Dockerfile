@@ -1,25 +1,46 @@
-from ruby:3.0.2
+FROM ruby:3.0.2
 
-RUN apt update
-RUN apt upgrade -y
-RUN apt install lsb-base lsb-release
 
-# PostgresSQL
-# Create the file repository configuration:
-RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+# Instalar dependências necessárias
+RUN apt-get update -qq && apt-get install -y build-essential \
+  build-essential \
+  libpq-dev \
+  nodejs \
+  vim \
+  htop \
+  gnupg \
+  g++ \
+  make \
+  wget \
+  apt-utils \
+  lsb-release
 
-# Import the repository signing key:
-RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+RUN apt-get install -y g++ make
 
-RUN apt update \
-    && apt install -y libpq-dev \
-                      vim \
-                      htop \
-                      postgresql-14
+RUN gem install mini_racer -v '0.8.0' --source 'https://rubygems.org/' \
+    && gem install libv8-node -v '18.16.0.0' --source 'https://rubygems.org/' 
 
-RUN gem install pg
+RUN gem install psych -v '3.3.0'
 
-ADD . /home/app/web
+# Configurar o repositório do Postgres
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
+  && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /usr/share/keyrings/pgdg-archive-keyring.gpg \
+  && echo "deb [signed-by=/usr/share/keyrings/pgdg-archive-keyring.gpg] http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+
+# Instalar o Postgres
+RUN apt-get update -qq && apt-get install -y postgresql-14 postgresql-client-14
+
+RUN gem install mini_portile2 -v '2.4.0'
+
+# Instale a versão específica do Bundler
+RUN gem install bundler:2.4.22
+
+# Configurar o diretório de trabalho e copiar os arquivos do aplicativo
 WORKDIR /home/app/web
+COPY . .
 
+# Atualize as gems para garantir que a versão correta do Bundler seja usada
+RUN bundle update --bundler
+
+# Instalar as dependências do Bundler
 RUN bundle install --jobs 5 --retry 5
