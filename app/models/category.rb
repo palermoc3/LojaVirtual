@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Category < ApplicationRecord
+  has_many :products
   belongs_to :department
   after_create :increment_department_quantity
   after_destroy :decrement_department_quantity

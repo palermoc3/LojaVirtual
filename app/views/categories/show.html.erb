@@ -1,11 +1,61 @@
 <p style="color: green"><%= notice %></p>
 <p style="color: red"><%= alert %></p>
 
-<%= render @category %>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <h2><%= @category.name %></h2>
+      <p>Quantidade de categorias: <%= @category.products.count %></p>
+      <p>Nome do departamento: <%= @category.department.name %></p>
+    </div>
+  </div>
 
-<div>
-  <%= link_to "Edit this category", edit_category_path(@category) %> |
-  <%= link_to "Back to categories", categories_path %>
+  <div class="row mt-4">
+    <div class="col-md-12">
+ <table class="table table-striped align-middle text-center border border-primary rounded p-3">
+    <thead>
+      <tr>
+        <th scope="col" class="text-start text-center align-middle pe-4">id</th>
+        <th scope="col" class="text-start text-center align-middle pe-4">Nome</th>
+        <th scope="col" class="text-start text-center align-middle pe-4"></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <th scope="row" class="text-start text-center align-middle pe-4"><%= product.id %></th>
+          <td class="text-start text-center align-middle pe-4"><%= product.name %></td>
+          <td class="text-end align-middle">
+            <div class="d-flex justify-content-end">
+              <%= link_to "Ver item", product, class: "btn btn-primary me-2" %>
+              <%= link_to "Editar item", edit_product_path(product), class: "btn btn-dark me-2" %>
+              <%= button_to "Deletar item", product, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+      <div class="d-flex justify-content-center align-items-center custom-pagination">
+        <%= paginate @products, outer_window: 2, inner_window: 2 %>
+      </div>
 
-  <%= button_to "Destroy this category", @category, method: :delete %>
+
+    </div>
+  </div>
+  <div class="row mt-4">
+  <div class="col-md-12">
+    <div class="d-inline-block mx-2">
+      <%= link_to "Back to categories", categories_path, class: "btn btn-secondary" %>  
+    </div>
+    <div class="d-inline-block">
+      <%= link_to "Edit this category", edit_category_path(@category), class: "btn btn-primary" %> 
+    </div>
+    <div class="d-inline-block">
+      <%= button_to "Destroy this category", @category, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+    </div>
+  </div>
 </div>
+
+
