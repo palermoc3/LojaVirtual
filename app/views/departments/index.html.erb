@@ -3,7 +3,7 @@
 <h1 class="text-center">Departments</h1>
 <div style="margin-left: 10%; margin-right: 10%;">
 
-  <table class="table table-striped align-middle text-center border border-primary rounded p-3">
+  <table class="table table-striped align-middle text-center border border-primary rounded p-3 my-5">
     <thead>
       <tr>
         <th scope="col" class="text-start text-center align-middle pe-4">id</th>
@@ -33,5 +33,5 @@
     <%= paginate @departments, outer_window: 2, inner_window: 2 %>
   </div>
 
-  <%= link_to "New department", new_department_path, class: "btn btn-primary btn-block" %>
+  <%= link_to "New department", new_department_path, class: "btn btn-primary btn-block mt-5" %>
 </div>

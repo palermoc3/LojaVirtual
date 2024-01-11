@@ -2,14 +2,18 @@
 
 class DepartmentsController < ApplicationController
   before_action :set_department, only: %i[show edit update destroy]
+  rescue_from ArgumentError, with: :handle_argument_error
 
   # GET /departments or /departments.json
   def index
-    @departments = Department.page(params[:page]).per(8)
+    @departments = Department.order(quantity: :desc).page(params[:page]).per(8)
   end
 
   # GET /departments/1 or /departments/1.json
-  def show; end
+  def show
+    @department = Department.find(params[:id])
+    @categories = @department.categories.order(quantity: :desc).page(params[:page]).per(5)
+  end
 
   # GET /departments/new
   def new
@@ -20,15 +24,17 @@ class DepartmentsController < ApplicationController
   def edit; end
 
   # POST /departments or /departments.json
+  # departments_controller.rb
+
   def create
     @department = Department.new(department_params)
 
     respond_to do |format|
       if @department.save
-        format.html { redirect_to department_url(@department), notice: 'Department was successfully created.' }
+        format.html { redirect_to @department, notice: 'Department was successfully created.' }
         format.json { render :show, status: :created, location: @department }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to departments_path, alert: 'Invalid name. Please try again.' }
         format.json { render json: @department.errors, status: :unprocessable_entity }
       end
     end
@@ -71,5 +77,10 @@ class DepartmentsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def department_params
     params.require(:department).permit(:name, :quantity)
+  end
+
+  def handle_argument_error(exception)
+    Rails.logger.error("ArgumentError during department creation: #{exception.message}")
+    redirect_to departments_path, alert: 'Invalid name. Please try again.'
   end
 end
