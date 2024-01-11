@@ -116,6 +116,8 @@ GEM
       ruby2_keywords
     erubi (1.12.0)
     execjs (2.9.1)
+    faker (3.2.2)
+      i18n (>= 1.8.11, < 2)
     globalid (1.2.1)
       activesupport (>= 6.1)
     google-protobuf (3.25.2-x86_64-linux)
@@ -284,6 +286,7 @@ DEPENDENCIES
   capybara
   dartsass-sprockets (~> 3.0)
   debug
+  faker
   importmap-rails
   jbuilder
   kaminari

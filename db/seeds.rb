@@ -10,24 +10,44 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 Department.create!(name: 'Home')
-Department.create!(name: 'Electronics')
+electronics = Department.create!(name: 'Electronics')
 Department.create!(name: 'Computers and Accessories')
 Department.create!(name: 'Commerce')
 Department.create!(name: 'Leisure and Entertainment')
 Department.create!(name: 'Automotive')
-Department.create!(name: 'Toys')
+toys = Department.create!(name: 'Toys')
 Department.create!(name: 'Sports')
 Department.create!(name: 'Health and Wellness')
 Department.create!(name: 'Fashion and Beauty')
-Category.create!(name: 'luz externa', department_id: 1)
-Category.create!(name: 'luz interna', department_id: 1)
-Category.create!(name: 'luz sala', department_id: 1)
-Category.create!(name: 'luz cozinha', department_id: 1)
-Category.create!(name: 'luz banheiro', department_id: 1)
-Category.create!(name: 'luz quarto', department_id: 1)
-Category.create!(name: 'luz piscina', department_id: 1)
-Category.create!(name: 'luz neutra', department_id: 1)
-Category.create!(name: 'brinquedo masc', department_id: 6)
-Category.create!(name: 'brinquedo fem', department_id: 6)
-Category.create!(name: 'brinquedo neutro', department_id: 6)
-Category.create!(name: 'brinquedo online', department_id: 6)
+
+Category.create!(name: 'luz externa', department_id: electronics.id)
+Category.create!(name: 'luz interna', department_id: electronics.id)
+Category.create!(name: 'luz sala', department_id: electronics.id)
+Category.create!(name: 'luz cozinha', department_id: electronics.id)
+Category.create!(name: 'luz banheiro', department_id: electronics.id)
+Category.create!(name: 'luz quarto', department_id: electronics.id)
+Category.create!(name: 'luz piscina', department_id: electronics.id)
+Category.create!(name: 'luz neutra', department_id: electronics.id)
+Category.create!(name: 'brinquedo masc', department_id: toys.id)
+fem = Category.create!(name: 'brinquedo fem', department_id: toys.id)
+Category.create!(name: 'brinquedo neutro', department_id: toys.id)
+Category.create!(name: 'brinquedo online', department_id: toys.id)
+
+for i in 1..12
+    Product.create!(
+      name: Faker::Commerce.product_name,
+      weight: 0.5,
+      width: 1.2,
+      length: 0.6,
+      depth: 0.2,
+      quantity: 20,
+      valueSell: 49.99,
+      valueBuy: 29.99,
+      description: Faker::Lorem.sentence(word_count: 3),
+      category_id: fem.id,
+      photo1: File.open("path/to/#{rand(1..9)}.jpeg"),
+      photo2: File.open("path/to/#{rand(1..9)}.jpeg"),
+      photo3: File.open("path/to/#{rand(1..9)}.jpeg")
+    )
+  end
+  
