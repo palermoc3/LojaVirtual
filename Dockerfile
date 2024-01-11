@@ -45,10 +45,5 @@ RUN bundle update --bundler
 # Após a instalação das gems
 RUN rails generate 
 
-
-# Adicione comandos para criar e migrar o banco de dados
-RUN bundle exec rake db:create
-RUN bundle exec rake db:migrate
-RUN bundle exec rake db:seed
 # Instalar as dependências do Bundler
 RUN bundle install --jobs 5 --retry 5
