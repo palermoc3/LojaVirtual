@@ -8,16 +8,16 @@ class Department < ApplicationRecord
                    format: { with: /\p{L}+/, message: 'Deve conter apenas letras' }, uniqueness: { message: 'Esse nome já foi cadastrado.' }
 
   enum name: {
-    electronics: 'Electronics',
-    computers_and_accessories: 'Computers and Accessories',
-    commerce: 'Commerce',
-    home: 'Home',
-    leisure_and_entertainment: 'Leisure and Entertainment',
-    automotive: 'Automotive',
-    toys: 'Toys',
-    sports: 'Sports',
-    health_and_wellness: 'Health and Wellness',
-    fashion_and_beauty: 'Fashion and Beauty'
+    'Electronics' => 'Electronics',
+    'Computers and Accessories' => 'Computers and Accessories',
+    'Commerce' => 'Commerce',
+    'Home' => 'Home',
+    'Leisure and Entertainment' => 'Leisure and Entertainment',
+    'Automotive' => 'Automotive',
+    'Toys' => 'Toys',
+    'Sports' => 'Sports',
+    'Health and Wellness' => 'Health and Wellness',
+    'Fashion and Beauty' => 'Fashion and Beauty'
   }
 
   validates :name, inclusion: { in: names.keys.map(&:to_s) }
