@@ -33,21 +33,25 @@ fem = Category.create!(name: 'brinquedo fem', department_id: toys.id)
 Category.create!(name: 'brinquedo neutro', department_id: toys.id)
 Category.create!(name: 'brinquedo online', department_id: toys.id)
 
-for i in 1..12
-    Product.create!(
-      name: Faker::Commerce.product_name,
-      weight: 0.5,
-      width: 1.2,
-      length: 0.6,
-      depth: 0.2,
-      quantity: 20,
-      valueSell: 49.99,
-      valueBuy: 29.99,
-      description: Faker::Lorem.sentence(word_count: 3),
-      category_id: fem.id,
-      photo1: File.open("path/to/#{rand(1..9)}.jpeg"),
-      photo2: File.open("path/to/#{rand(1..9)}.jpeg"),
-      photo3: File.open("path/to/#{rand(1..9)}.jpeg")
-    )
-  end
+for i in 1..21
+  value_buy = Faker::Commerce.price(range: 10.0..49.0, as_string: false).to_f
+  value_sell = Faker::Commerce.price(range: (value_buy + 1.0)..(value_buy + 20.0), as_string: false).to_f
+
+  Product.create!(
+    name: Faker::Commerce.product_name,
+    weight: 0.5,
+    width: 1.2,
+    length: 0.6,
+    depth: 0.2,
+    quantity: 20,
+    valueSell: value_sell,
+    valueBuy: value_buy,
+    description: Faker::Lorem.sentence(word_count: 3),
+    category_id: fem.id,
+    photo1: File.open("path/to/#{rand(1..9)}.jpeg"),
+    photo2: File.open("path/to/#{rand(1..9)}.jpeg"),
+    photo3: File.open("path/to/#{rand(1..9)}.jpeg")
+  )
+end
+
   

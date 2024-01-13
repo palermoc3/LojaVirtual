@@ -1,2 +1,19 @@
 // Inclua seu estilo personalizado após o Bootstrap
 @import "custom";
+
+.custom-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Ajuste conforme necessário */
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Isso pode ajudar a garantir a altura total da div */
+  }
+  
+  .card-body {
+    flex: 1; /* Isso permite que a div .card-body ocupe todo o espaço disponível na div .card */
+  }
