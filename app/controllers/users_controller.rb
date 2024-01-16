@@ -34,6 +34,10 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1 or /users/1.json
   def update
     respond_to do |format|
+      if user_params[:password].blank? # Se a senha estiver em branco, não atualize
+        params[:user].delete(:password)
+        params[:user].delete(:password_confirmation)
+      end
       if @user.update(user_params)
         format.html { redirect_to products_path, notice: "User was successfully created." }
         format.json { render :show, status: :ok, location: @user }
@@ -62,6 +66,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :cpf, :email, :role, :state, :cep, :street, :number)
+      params.require(:user).permit(:name, :cpf, :email, :role, :state, :cep, :street, :number,  :password, :password_confirmation)
     end
 end

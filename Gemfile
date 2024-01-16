@@ -53,7 +53,7 @@ gem 'bootstrap', '~> 5.3.0'
 
 gem 'psych', '3.3.4'
 
-gem 'mini_racer', '~> 0.8.0'
+#gem 'mini_racer', '~> 0.8.0'
 
 gem 'dartsass-sprockets', '~> 3.0'
 

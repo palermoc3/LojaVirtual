@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-    has_one :employee
-    has_one :administrator
-    has_many :cellphones
-    has_many :purchases
-    #has_secure_password
+    has_secure_password
     before_validation :set_default_role
     #after_create :create_initial_purchase
   
@@ -15,6 +11,9 @@ class User < ApplicationRecord
     validates :name, format: { with: /\p{L}+/, message: 'Deve conter apenas Letras' }
   
     validates :cpf, uniqueness: { message: 'Esse CPF já foi cadastrado.' }
+    
+    validates :email, uniqueness: { message: 'Esse Email já foi cadastrado.' }
+
   
     validates :cpf, length: { is: 11, message: 'Deve ter exatamente 8 dígitos' }
   
@@ -29,7 +28,9 @@ class User < ApplicationRecord
   
     validates :cep, format: { with: /\A\d+\z/, message: 'deve conter apenas algarismos' }
   
-    #validates :password, presence: true, length: { minimum: 6, message: 'A senha deve conter pelo menos 6 digitos' }
+    validates :password, presence: { on: :create }, length: { minimum: 6, message: 'A senha deve conter pelo menos 6 caracteres', on: :create }
+
+  # ... outras validações e associações
   
     #validate :password_complexity
   
