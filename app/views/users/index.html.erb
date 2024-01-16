@@ -1,0 +1,37 @@
+<p style="color: green; text-align: center;"><%= notice %></p>
+<p style="color: red; text-align: center;"><%= alert %></p>
+
+<div style="margin-left: 10%; margin-right: 10%;">
+  <h1>Users</h1>
+  <h3>Total Users: <%= @total_users %></h3>
+  <table class="table table-striped align-middle text-center border border-primary rounded p-3 my-5">
+    <thead>
+      <tr>
+        <th scope="col" class="text-start text-center align-middle pe-4">ID</th>
+        <th scope="col" class="text-start text-center align-middle pe-4">Name</th>
+        <th scope="col" class="text-start text-center align-middle pe-4">Email</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <th scope="row" class="text-start text-center align-middle pe-4"><%= user.id %></th>
+          <td class="text-start text-center align-middle pe-4"><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td class="text-end align-middle">
+            <div class="d-flex justify-content-end">
+              <%= link_to "Edit User", edit_user_path(user), class: "btn btn-dark me-2" %>
+              <%= button_to "Delete User", user, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-center align-items-center custom-pagination">
+    <%= paginate @users, outer_window: 2, inner_window: 2 %>
+  </div>
+
+  <%= link_to "New User", new_user_path, class: "btn btn-primary btn-block mt-5" %>
+</div>
