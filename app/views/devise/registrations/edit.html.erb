@@ -1,0 +1,86 @@
+<div class="container mt-5">
+  <div style="margin: 0 15%;">
+    <h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="form-group mt-5">
+        <%= f.label :name, style: "display: block" %>
+        <%= f.text_field :name, class: "form-control mt-3" %>
+      </div>
+
+      <div class="form-group my-5">
+        <%= f.label :cpf, style: "display: block" %>
+        <%= f.text_field :cpf, class: "form-control" %>
+      </div>
+
+      <div class="form-group my-5">
+        <%= f.label :email, style: "display: block" %>
+        <%= f.text_field :email, class: "form-control" %>
+      </div>
+
+      <!-- Uncomment the following block if needed -->
+      <!--
+      <div class="form-group my-5">
+        <%= f.label :role, style: "display: block" %>
+        <%= f.number_field :role, class: "form-control" %>
+      </div>
+      -->
+
+      <div class="form-group my-5">
+        <div class="row">
+          <div class="col-md-9">
+            <%= f.label :cep, style: "display: block" %>
+            <%= f.text_field :cep, class: "form-control" %>
+          </div>
+          <div class="col-md-3">
+            <%= f.label :state, style: "display: block" %>
+            <%= f.collection_select(:state, %w[AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO], :to_s, :humanize, { prompt: true }, { class: 'form-control' }) %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group my-5">
+        <div class="row">
+          <div class="col-md-9">
+            <%= f.label :street, style: "display: block" %>
+            <%= f.text_field :street, class: "form-control" %>
+          </div>
+          <div class="col-md-3">
+            <%= f.label :number, style: "display: block" %>
+            <%= f.number_field :number, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-group mt-4">
+        <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control mt-3" %>
+      </div>
+
+      <div class="form-group mt-4">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control mt-3" %>
+      </div>
+
+      <div class="form-group mt-4">
+        <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+        <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control mt-3" %>
+      </div>
+
+      <div class="form-group text-center mt-4">
+        <%= f.submit "Update", class: "btn btn-success btn-lg px-5" %>
+      </div>
+    <% end %>
+
+    <div class="mt-4">
+      <%= link_to "Voltar", :back, class: "btn btn-secondary" %>
+    </div>
+
+    <div class="mt-4">
+      <%= button_to "Delete sua conta", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger" %>
+    </div>
+  </div>
+</div>

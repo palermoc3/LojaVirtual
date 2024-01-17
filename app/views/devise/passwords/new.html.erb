@@ -1,0 +1,26 @@
+<div class="container mt-5">
+  <div style="margin: 15% 15%;">
+    <h2>Forgot your password?</h2>
+
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="form-group mt-3">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control mt-3" %>
+      </div>
+
+      <div class="form-group my-4">
+        <%= f.submit "Send me reset password instructions", class: "btn btn-success" %>
+      </div>
+    <% end %>
+
+    <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover mt-5" href="<%= user_session_path %>">
+      Login
+    </a>
+    <p class="py-1"></p>
+    <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover mt-5" href="<%= new_user_registration_path%>">
+      Criar Nova Conta 
+    </a>
+  </div>
+</div>

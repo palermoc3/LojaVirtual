@@ -1,6 +1,4 @@
-import 'select2';
-import 'select2/dist/css/select2.css';
+// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 
-document.addEventListener('turbo:load', function() {
-  $('.select2').select2();
-});
+import "@hotwired/turbo-rails"
+import "controllers"

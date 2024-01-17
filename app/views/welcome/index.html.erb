@@ -1,2 +1,13 @@
-<h1>Welcome#index</h1>
+<h1>Welcome#indexs</h1>
 <p>Find me in app/views/welcome/index.html.erb</p>
+
+<!-- Example in a view -->
+<% if user_signed_in? %>
+  <p><%= current_user.inspect %></p>
+  <h2>S</h2>
+<% else %>
+  <p>User not signed in.</p>
+<% end %>
+
+
+<p><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></p>
