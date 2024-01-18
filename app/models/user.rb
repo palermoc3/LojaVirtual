@@ -1,7 +1,6 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_secure_password
   before_validation :set_default_role
   #after_create :create_initial_purchase
 
@@ -27,8 +26,10 @@ class User < ApplicationRecord
   validates :cep, length: { is: 8, message: 'deve ter exatamente 8 dígitos' }
 
   validates :cep, format: { with: /\A\d+\z/, message: 'deve conter apenas algarismos' }
-
-  validates :password, presence: { on: :create }, length: { minimum: 6, message: 'A senha deve conter pelo menos 6 caracteres', on: :create }
+  
+  #validates :phone, presence: true
+  
+  validates :kind, inclusion: { in: [true, false] }
 
   private
 
