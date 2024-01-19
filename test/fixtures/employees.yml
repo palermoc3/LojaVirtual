@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ctps: MyString
+  salary_base: 9.99
+  hours: 1
+
+two:
+  ctps: MyString
+  salary_base: 9.99
+  hours: 1

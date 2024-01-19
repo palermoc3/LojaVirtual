@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@babel/preset-env": "^7.23.8",
+    "yarn": "^1.22.21"
+  },
+  "name": "LojaVirtual",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/palermoc3/LojaVirtual.git",
+  "author": "palermoc <pedropalermo97@gmail.com>",
+  "license": "MIT"
+}

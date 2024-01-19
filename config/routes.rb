@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :clients
+  resources :employees
+  resources :admins
   devise_for :users, controllers: { registrations: 'users/registrations' }
   devise_scope :user do
     get 'users/table', to: 'users/registrations#table', as: 'user_table'

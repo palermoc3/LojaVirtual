@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_one :admin, dependent: :destroy
+  has_one :employee, dependent: :destroy
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   before_validation :set_default_role
