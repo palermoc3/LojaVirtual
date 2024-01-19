@@ -1,0 +1,30 @@
+<h1 class="text-center">User List</h1>
+<div style="margin-left: 10%; margin-right: 10%;">
+  <table class="table table-striped align-middle text-center border border-primary rounded p-3 my-5">
+    <thead>
+      <tr>
+        <th scope="col" class="text-start text-center align-middle pe-4">id</th>
+        <th scope="col" class="text-start text-center align-middle pe-4">Email</th>
+        <th scope="col" class="text-start text-center align-middle pe-4">Phone</th>
+        <th scope="col" class="text-start text-center align-middle pe-4">Address</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <th scope="row" class="text-start text-center align-middle pe-4"><%= user.id %></th>
+          <td class="text-start text-center align-middle pe-4"><%= user.email %></td>
+          <td class="text-start text-center align-middle pe-4"><%= user.phone %></td>
+          <td class="text-start text-center align-middle pe-4"><%= "#{user.street} #{user.number}, #{user.state}" %></td>
+          <td class="text-end align-middle">
+            <div class="d-flex justify-content-end">
+              <%= link_to "Editar usuário", edit_user_registration_path(user), class: "btn btn-dark me-2" %>
+              <%= button_to "Deletar usuário", registration_path(resource_name), method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

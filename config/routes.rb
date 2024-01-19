@@ -2,6 +2,9 @@
 
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_scope :user do
+    get 'users/table', to: 'users/registrations#table', as: 'user_table'
+  end
   resources :categories
   resources :departments
   resources :products do

@@ -5,6 +5,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.new
   end
 
+  def table
+    @users = User.all
+  end
+
   def update
     if params[:user][:password].blank?
       params[:user].delete(:password)
@@ -13,7 +17,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
     super
   end
-  
+
 
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :cpf, :state, :cep, :street, :number, :kind, :phone])
