@@ -1,19 +1,39 @@
-// Inclua seu estilo personalizado após o Bootstrap
-@import "custom";
+  .visible {
+    display: block;
+  }
 
-.custom-pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px; /* Ajuste conforme necessário */
+  .invisible {
+    display: none;
   }
-  
-  .card {
-    display: flex;
-    flex-direction: column;
-    height: 100%; /* Isso pode ajudar a garantir a altura total da div */
+
+  #tooltip {
+    position: absolute;
+    background-color: #ccc;
+    padding: 10px;
+    z-index: 999;
+    width: auto;
+    max-width: 200px; /* Defina um valor máximo para evitar que a largura fique muito grande */
   }
-  
-  .card-body {
-    flex: 1; /* Isso permite que a div .card-body ocupe todo o espaço disponível na div .card */
+
+  /* Adicionando estilos para criar duas colunas */
+  #tooltip ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap; /* Permitir que os itens quebrem para a próxima linha */
+  }
+
+  #tooltip li {
+    flex: 1; /* Cada item ocupa uma parte igual do espaço disponível */
+    width: 50%; /* Duas colunas */
+    box-sizing: border-box; /* Inclui a borda e o preenchimento no cálculo da largura */
+    text-align: center; /* Centralizar o texto */
+  }
+
+  #tooltip li a {
+    text-decoration: none; /* Remover decoração de link */
+    color: inherit; /* Herdar a cor do texto do elemento pai */
+    display: block; /* Tornar o link em bloco para ocupar toda a largura do item da lista */
+    padding: 5px; /* Adicionar algum preenchimento para melhorar a aparência */
   }

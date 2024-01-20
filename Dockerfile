@@ -42,6 +42,9 @@ COPY . .
 # Atualize as gems para garantir que a versão correta do Bundler seja usada
 RUN bundle update --bundler
 
+# Instalação de dependências e compilação de ativos
+RUN bundle exec rake assets:precompile
+
 # Após a instalação das gems
 RUN rails generate 
 
