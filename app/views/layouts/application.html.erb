@@ -5,73 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-
-    <!-- Adicione as linhas abaixo para incluir o Bootstrap -->
+    <%= stylesheet_link_tag "all", media: "all" %>
+    <%= javascript_include_tag 'application' %>
     <%= stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css', 'data-turbo-track': 'reload' %>
     <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js', 'data-turbo-track': 'reload' %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  
   <script>
-    function showTooltip() {
-      var tooltip = document.getElementById('tooltip');
-      tooltip.classList.remove('invisible');
-      tooltip.classList.add('visible');
-    }
+  var tooltipTimer;
 
-    function hideTooltip() {
+  function showTooltip() {
+    var tooltip = document.getElementById('tooltip');
+    clearTimeout(tooltipTimer); // Limpar qualquer temporizador de ocultação pendente
+    tooltip.classList.remove('invisible');
+    tooltip.classList.add('visible');
+  }
+
+  function hideTooltip() {
+    // Adicionar um atraso de 500 milissegundos (0.5 segundos) antes de ocultar o tooltip
+    tooltipTimer = setTimeout(function() {
       var tooltip = document.getElementById('tooltip');
       tooltip.classList.remove('visible');
       tooltip.classList.add('invisible');
-    }
-
-    function toggleVisibility() {
-      var button = document.getElementById('toggleButton');
-      var tooltip = document.getElementById('tooltip');
-
-      if (button.classList.contains('visible')) {
-        button.classList.remove('visible');
-        button.classList.add('invisible');
-      } else {
-        button.classList.remove('invisible');
-        button.classList.add('visible');
-      }
-
-      // Oculta o tooltip ao alterar a visibilidade do botão
-      hideTooltip();
-    }
+    }, 500);
+  }
   </script>
-</head>
-<body>
-  <button
-    id="toggleButton"
-    class="visible"
-    onmouseover="showTooltip()"
-    onmouseout="hideTooltip()"
-    onclick="toggleVisibility()"
-  >
-    Toggle Visibility
-  </button>
-
-  <!-- Div do tooltip -->
-  <div id="tooltip" class="invisible"
-      onmouseover="showTooltip()"
-    onmouseout="hideTooltip()">
-    <ul>
-      <li><a href="#">Item 1</a></li>
-      <li><a href="#">Item 2</a></li>
-      <li><a href="#">Item 3</a></li>
-      <li><a href="#">Item 4</a></li>
-      <li><a href="#">Item 5</a></li>
-      <li><a href="#">Item 6</a></li>
-      <li><a href="#">Item 7</a></li>
-      <li><a href="#">Item 8</a></li>
-      <li><a href="#">Item 9</a></li>
-      <li><a href="#">Item 10</a></li>
-    </ul>
+  </head>
+  <body>
+    <header>
+      <% @department_with_most_categories = Department.includes(:categories).max_by { |department| department.categories.size } %>
+      <div class="d-flex justify-content-between" style="margin-left: 10%; margin-right: 10%; padding-top: 0.2rem; padding-bottom: -0.2rem;">
+        <p onmouseover="showTooltip()" onmouseout="hideTooltip()">Todos os Departamentos</p>
+        <% @departments_with_most_categories = Department.includes(:categories).sort_by { |department| department.categories.size }.reverse.take(4) %>
+        <% @departments_with_most_categories.each do |department| %>
+          <p><%= department.name %></p>
+        <% end %>
+      </div>
+    </header>
+<div id="tooltip" class="invisible" onmouseover="showTooltip()" onmouseout="hideTooltip()" style="margin-left: 10%; margin-right: 10%;">
+  <div class="row gx-4">
+    <% Department.order(:name).each do |department| %>
+      <div class="col-md-3">
+        <strong><%= link_to department.name.capitalize, department_path(department), class: 'no-decoration text-uppercase' %></strong><br>
+        <% department.categories.order(:name).each do |category| %>
+          <%= link_to category.name, category_path(category), class: 'no-decoration' %><br>
+        <% end %>
+      </div>
+    <% end %>
   </div>
-
+</div>
     <%= yield %>
   </body>
 </html>

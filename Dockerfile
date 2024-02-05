@@ -43,7 +43,7 @@ COPY . .
 RUN bundle update --bundler
 
 # Instalação de dependências e compilação de ativos
-RUN bundle exec rake assets:precompile
+RUN RAILS_ENV=production bundle exec rake assets:precompile
 
 # Após a instalação das gems
 RUN rails generate 

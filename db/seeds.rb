@@ -33,7 +33,7 @@ fem = Category.create!(name: 'brinquedo fem', department_id: toys.id)
 Category.create!(name: 'brinquedo neutro', department_id: toys.id)
 Category.create!(name: 'brinquedo online', department_id: toys.id)
 
-for i in 1..21
+(1..21).each do |_i|
   value_buy = Faker::Commerce.price(range: 10.0..49.0, as_string: false).to_f
   value_sell = Faker::Commerce.price(range: (value_buy + 1.0)..(value_buy + 20.0), as_string: false).to_f
 
@@ -53,5 +53,3 @@ for i in 1..21
     photo3: File.open("path/to/#{rand(1..9)}.jpeg")
   )
 end
-
-  
